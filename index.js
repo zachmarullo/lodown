@@ -230,7 +230,156 @@ function partition(array, func){
 };
 module.exports.partition = partition;
 
+/**
+ * map: Function designed to iterate over a collection and return a new array with the data transformed in some way.
+ * @param {collection} collection: the collection which will be iterated over
+ * @param {func} func: the callback function that will be used as a test to return our new array
+ */
 
+function map(collection, func){
+    let newArr = [];
+    if (typeof collection === 'object' && Array.isArray(collection)) {
+        for (let i = 0; i < collection.length; i++) {
+            let result = func(collection[i], i, collection);
+            newArr.push(result);
+        }
+    } else {
+        for (var key in collection) {
+            let result = func(collection[key], key, collection);
+            newArr.push(result);
+        }
+    }
+    return newArr;
+};
+module.exports.map = map;
 
+/**
+ * Pluck: function takes in an array and returns a property from the array
+ * @param {array} array: The array over which to remove a property from 
+ * @param {property} prop: The property to be returned from the input array. 
+ * @returns {result} result: The returned property, as an array.
+ */
+function pluck (array, prop) {
+    var result = _.map(array, function (element) {
+        return element[prop];
+    });
+    return result;
+};
+module.exports.pluck = pluck;
+/**
+ * Every: function takes in a collection and tests something within it. If everything comes back passing test function,
+ * every returns true. If even one element fails, every returns false.
+ * @param {collection} collection: Object or array over which the function iterates and tests.
+ * @param {test} action: Tests collection against whatever function is input as second parameter.
+ * 
+ */
 
+ function every(collection, test) {
+    if (test === undefined){
+        if (Array.isArray(collection)) {
+            for (let i = 0; i < collection.length; i++) {
+                if (!collection[i]){
+                    return false;
+                } 
+            }
+        } else {
+            for (var key in collection) {
+                if (!collection[key]){
+                    return false;
+                }
+            }
+        }
+    } else {
+        if (Array.isArray(collection)) {
+            for (let i = 0; i < collection.length; i++) {
+                if (!test(collection[i], i, collection)) {
+                    return false;
+                }
+            }
+        } else {
+            for (var key in collection) {
+                if (!test(collection[key], key, collection)) {
+                    return false;
+                }
+            }
+        }
+    } 
+    return true;
+};
+module.exports.every = every;
+/**
+ * Function: Some takes in a collection and a test function and returns true if even one element passes the function. 
+ * If all elements fail the test function, some will return false;
+ * 
+ */
+ function some(collection, test) {
+    if (test === undefined){
+        if (Array.isArray(collection)) {
+            for (let i = 0; i < collection.length; i++) {
+                if (collection[i]){
+                    return true;
+                } 
+            }
+        } else {
+            for (var key in collection) {
+                if (collection[key]){
+                    return true;
+                }
+            }
+        }
+    } else {
+        if (Array.isArray(collection)) {
+            for (let i = 0; i < collection.length; i++) {
+                if (test(collection[i], i, collection)) {
+                    return true;
+                }
+            }
+        } else {
+            for (var key in collection) {
+                if (test(collection[key], key, collection)) {
+                    return true;
+                }
+            }
+        }
+    } 
+    return false;
+};
+module.exports.some = some;
+/**
+ * Function: Reduce takes an array, a test function, and optionally a seed. If no seed is given, reduce will skip the 
+ * first iteration in the loop and begin the test with index 1 of the given array.
+ * @param {array} array: The array over which to loop and test
+ * @param {func} action: The function used to test the array given put in.
+ * @param {seed} seed: The optional parameter that tells the function where to begin. Often 0, meaning the function will begin
+ * iterating at the 0 index of the array.
+ * 
+ */
+ function reduce(array, func, seed) {
+    var output;
 
+    if (seed === undefined) {
+        output = array[0];
+        for (let i = 1; i < array.length; i++) {
+            output = func(output, array[i], i, array)
+        }
+    } else {
+        output = seed;
+        for (var i = 0; i < array.length; i++) {
+            output = func(output, array[i], i, array);
+        }
+    }
+    return output;
+};
+module.exports.reduce = reduce;
+/**
+ * Extend: Function takes in a target object and an additional "n" number of objects to have their information copied 
+ * into the target object.
+ * @param {target} target: The target object to recieve information either copied or replaced from other objects that 
+ * are input.
+ * @param {objects} objects: The list of one or more objects that will be copied into the target object.
+ */
+ function extend(target, ...objects) {
+    objects = Object.assign(target, ...objects);
+    return objects;
+};
+module.exports.extend = extend;
