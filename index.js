@@ -310,6 +310,10 @@ module.exports.every = every;
 /**
  * Some: function takes in a collection and a test function and returns true if even one element passes the function. 
  * If all elements fail the test function, some will return false;
+ * @param {collection} collection: The collection which is iterated over and tested to see if an element passes.
+ * @param {test} test: The test function that resolves to true or false, but will return true if one element passes.
+ * @return {true/false} true/false: The value of true or false will be returned, being true if even one element passes the test,
+ * but returning false if all elements fail.
  * 
  */
  function some(collection, test) {
