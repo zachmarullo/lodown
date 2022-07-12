@@ -233,7 +233,7 @@ module.exports.partition = partition;
 /**
  * map: Function designed to iterate over a collection and return a new array with the data transformed in some way.
  * @param {collection} collection: the collection which will be iterated over
- * @param {func} func: the callback function that will be used as a test to return our new array
+ * @param {func} func: the callback function that will be used to return a value which will populate the output array.
  */
 
 function map(collection, func){
@@ -254,7 +254,7 @@ function map(collection, func){
 module.exports.map = map;
 
 /**
- * Pluck: function takes in an array and returns a property from the array
+ * Pluck: function takes in an array and returns the values form each object at the specified property.
  * @param {array} array: The array over which to remove a property from 
  * @param {property} prop: The property to be returned from the input array. 
  * @returns {result} result: The returned property, as an array.
@@ -308,7 +308,7 @@ module.exports.pluck = pluck;
 };
 module.exports.every = every;
 /**
- * Function: Some takes in a collection and a test function and returns true if even one element passes the function. 
+ * Some: function takes in a collection and a test function and returns true if even one element passes the function. 
  * If all elements fail the test function, some will return false;
  * 
  */
@@ -346,12 +346,13 @@ module.exports.every = every;
 };
 module.exports.some = some;
 /**
- * Function: Reduce takes an array, a test function, and optionally a seed. If no seed is given, reduce will skip the 
- * first iteration in the loop and begin the test with index 1 of the given array.
+ * Function: Reduce takes an array, a callback function, and optionally a seed. If no seed is given, reduce will skip the 
+ * first iteration in the loop and begin the test with index 1 of the given array. 
  * @param {array} array: The array over which to loop and test
- * @param {func} action: The function used to test the array given put in.
+ * @param {func} action: The callback function used to accumulate a result.
  * @param {seed} seed: The optional parameter that tells the function where to begin. Often 0, meaning the function will begin
  * iterating at the 0 index of the array.
+ * @return {output} output: The returned value of reduce after it passes through the callback function. 
  * 
  */
  function reduce(array, func, seed) {
